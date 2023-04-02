@@ -18,6 +18,7 @@ task clean(type: Delete) {
 }
 
 ext {
+    activity_version = "1.4.0"
     lifecycleVersion = "2.4.0"
     roomVersion = "2.4.3"
 }

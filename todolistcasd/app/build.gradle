@@ -37,6 +37,8 @@ android {
 
 dependencies {
 
+    implementation "androidx.activity:activity-ktx:$rootProject.activity_version"
+
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
