@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface TodoItemDao {
@@ -17,4 +18,7 @@ interface TodoItemDao {
 
     @Delete
     suspend fun delete(todoItem: TodoItem)
+
+    @Update
+    suspend fun update(todoItem: TodoItem)
 }
