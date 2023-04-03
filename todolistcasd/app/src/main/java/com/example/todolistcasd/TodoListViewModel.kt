@@ -17,3 +17,13 @@ class TodoListViewModel(private val repository: TodoItemRepository): ViewModel()
         repository.insert(todoItem)
     }
 }
+
+class TodoListViewModelFactory(private val repository: TodoItemRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(TodoListViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return TodoListViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
