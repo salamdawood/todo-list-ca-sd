@@ -2,30 +2,36 @@ package com.example.todolistcasd
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todolistcasd.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
-    private val todoList = mutableListOf<String>()
-    private val todoAdapter = TodoAdapter(todoList);
+    private val todoListViewModel: TodoListViewModel by viewModels {
+        TodoListViewModelFactory((application as TodoListApplication).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = todoAdapter
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        val adapter = TodoAdapter()
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        todoListViewModel.allTodoItems.observe(this) { todoItems ->
+            todoItems.let { adapter.submitList(it) }
         }
 
-
         binding.addButton.setOnClickListener {
-            val newItem = binding.todoEditText.text.toString().trim()
-            if (newItem.isNotEmpty()) {
-                todoList.add(newItem)
-                todoAdapter.notifyItemInserted(todoList.size - 1)
+            val newItem = TodoItem(binding.todoEditText.text.toString().trim())
+            if (newItem.item.isNotEmpty()) {
+                todoListViewModel.insert(newItem)
                 binding.todoEditText.text.clear()
             }
         }
