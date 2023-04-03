@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 class TodoAdapter : ListAdapter<TodoItem, TodoAdapter.TodoViewHolder>(TodoItemComparator()) {
 
     class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val todoItemView: TextView = itemView.findViewById(android.R.id.text1)
+        private val todoItemView: TextView = itemView.findViewById(R.id.textView)
 
         fun bind(text: String?) {
             todoItemView.text = text

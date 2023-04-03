@@ -1,6 +1,7 @@
 package com.example.todolistcasd
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 /**
  * Explanation of TodoItem Data Class
@@ -8,4 +9,7 @@ import androidx.room.Entity
  * @PrimayKey assigned to the UUID of each row
  */
 @Entity(tableName = "todo_item_table")
-data class TodoItem(val item: String)
+data class TodoItem(
+    @PrimaryKey
+    val item: String
+)

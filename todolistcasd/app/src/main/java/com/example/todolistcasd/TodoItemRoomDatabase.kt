@@ -25,7 +25,9 @@ abstract class TodoItemRoomDatabase : RoomDatabase() {
 
         suspend fun populateDatabase(todoItemDao: TodoItemDao) {
             //Add test items
-            var todoItem = TodoItem("TEST")
+            var todoItem = TodoItem("Test 1")
+            todoItemDao.insert(todoItem)
+            todoItem = TodoItem("TEST 2")
             todoItemDao.insert(todoItem)
         }
     }
