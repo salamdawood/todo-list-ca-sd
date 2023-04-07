@@ -15,4 +15,9 @@ class TodoItemRepository(private val todoItemDao: TodoItemDao) {
     suspend fun insert(todoItem: TodoItem) {
         todoItemDao.insert(todoItem)
     }
+
+    @WorkerThread
+    suspend fun delete(todoItem: TodoItem) {
+        todoItemDao.delete(todoItem)
+    }
 }
