@@ -24,6 +24,12 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         val adapter = TodoAdapter()
+        adapter.setOnItemClickListener(object : TodoAdapter.OnItemClickListener {
+            override fun onItemClicked(todoItem: TodoItem) {
+                itemOptionsAlertDialog(todoItem)
+//                Toast.makeText(this@MainActivity, todoItem.item , Toast.LENGTH_SHORT).show()
+            }
+        })
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -36,22 +42,21 @@ class MainActivity : AppCompatActivity() {
             if (newItem.item.isNotEmpty()) {
                 todoListViewModel.insert(newItem)
                 binding.todoEditText.text.clear()
-            } else {
-                itemOptionsAlertDialog()
             }
         }
     }
 
-    fun itemOptionsAlertDialog() {
+    private fun itemOptionsAlertDialog(todoItem: TodoItem) {
         val builder = AlertDialog.Builder(this)
         builder
             .setTitle("Update or Delete")
             .setMessage("Please select Delete or Update")
             .setPositiveButton("DELETE") { _, _ ->
-                Toast.makeText(this, "DELETED", Toast.LENGTH_SHORT).show()
+                todoListViewModel.delete(todoItem)
+                Toast.makeText(this, "${todoItem.item} Deleted!", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton("Update") { _, _ ->
-                Toast.makeText(this, "UPDATED", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "${todoItem.item} UPDATED", Toast.LENGTH_SHORT).show()
             }
             .setCancelable(true)
 
