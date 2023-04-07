@@ -36,7 +36,7 @@ class TodoAdapter : ListAdapter<TodoItem, TodoAdapter.TodoViewHolder>(TodoItemCo
         holder.bind(current.item)
 
         holder.itemView.setOnClickListener {
-            Toast.makeText(holder.itemView.context, current.item, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(holder.itemView.context, current.item, Toast.LENGTH_SHORT).show()
         }
     }
 
