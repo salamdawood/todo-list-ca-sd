@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class TodoAdapter : ListAdapter<TodoItem, TodoAdapter.TodoViewHolder>(TodoItemComparator()) {
 
+    private var listener: OnItemClickListener? = null
+
     class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val todoItemView: TextView = itemView.findViewById(R.id.tv_list_item)
 
@@ -36,8 +38,16 @@ class TodoAdapter : ListAdapter<TodoItem, TodoAdapter.TodoViewHolder>(TodoItemCo
         holder.bind(current.item)
 
         holder.itemView.setOnClickListener {
-//            Toast.makeText(holder.itemView.context, current.item, Toast.LENGTH_SHORT).show()
+            listener?.onItemClicked(current)
         }
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.listener = listener
+    }
+
+    interface OnItemClickListener {
+        fun onItemClicked(todoItem: TodoItem)
     }
 
     class TodoItemComparator : DiffUtil.ItemCallback<TodoItem>() {
